@@ -1,0 +1,30 @@
+{% extends "tracker/base.html" %}
+{% block title %}Courses{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Courses</h1>
+    <form method="get" class="d-flex" style="gap:.5rem">
+      <input name="q" value="{{ q }}" class="form-control form-control-sm" placeholder="Search title or description" />
+      <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
+    </form>
+  </div>
+
+  {% if courses %}
+    <div class="row g-3">
+      {% for c in courses %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ c.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ c.instructor.name }}</h6>
+              <p class="small text-muted mb-1">{{ c.description|truncatechars:100 }}</p>
+              <p class="small text-muted">Lessons: {{ c.lessons_count }} • Total: {{ c.lessons_count }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">No courses yet.</div>
+  {% endif %}
+{% endblock %}
